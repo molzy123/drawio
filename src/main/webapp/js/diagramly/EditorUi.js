@@ -15329,6 +15329,7 @@
 	 */
 	EditorUi.prototype.openFileHandle = function(data, name, file, temp, fileHandle)
 	{
+		console.log(">>>>>>>>>>>openFileHandle")
 		if (name != null && name.length > 0)
 		{
 			if ((!this.useCanvasForExport && /(\.png)$/i.test(name)) ||
@@ -15502,6 +15503,7 @@
 	 */
 	EditorUi.prototype.openFiles = function(files, temp)
 	{
+		console.log(">>>>>>>openFiles")
 		if (this.spinner.spin(document.body, mxResources.get('loading')))
 		{
 			for (var i = 0; i < files.length; i++)
