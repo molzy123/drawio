@@ -1,0 +1,13 @@
+{
+  "name": "drawio-dev",
+  "version": "1.0.0",
+  "main": "src/main/webapp/index.html",
+  "scripts": {
+    "start": "cd src/main/webapp && serve",
+    "build": "cd etc/build && ant"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "serve": "^12.0.1"
+  }
+}

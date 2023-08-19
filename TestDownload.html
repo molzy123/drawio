@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+</body>
+
+<script>
+
+  function saveAs(blob, filename) {
+    // 创建一个指向Blob对象的URL
+    var url = URL.createObjectURL(blob);
+
+    // 创建一个新的'a'元素
+    var a = document.createElement('a');
+
+    // 设置'a'元素的属性
+    a.href = url;
+    a.download = filename || 'download';
+
+    // 触发'a'元素的'click'事件
+    a.click();
+  }
+
+
+
+    const fileObj = {
+      title:"TestDownLoadFile",
+      data:'<mxfile host="localhost" modified="2023-08-13T11:40:47.690Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.0.0" etag="rdqwFhG4broi4Il72zFd" version="@DRAWIO-VERSION@" type="device">\n' +
+              '  <diagram name="第 1 页" id="ZIeCEoMYiHqhLJAw9WdM">\n' +
+              '    <mxGraphModel dx="787" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">\n' +
+              '      <root>\n' +
+              '        <mxCell id="0" />\n' +
+              '        <mxCell id="1" parent="0" />\n' +
+              '        <mxCell id="NwGjgS0ppywrLdzSvTmz-4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;fontSize=14;" edge="1" parent="1" source="NwGjgS0ppywrLdzSvTmz-1" target="NwGjgS0ppywrLdzSvTmz-3">\n' +
+              '          <mxGeometry relative="1" as="geometry" />\n' +
+              '        </mxCell>\n' +
+              '        <mxCell id="NwGjgS0ppywrLdzSvTmz-5" style="edgeStyle=none;rounded=1;html=1;strokeWidth=1.5;fontSize=14;" edge="1" parent="1" source="NwGjgS0ppywrLdzSvTmz-1" target="NwGjgS0ppywrLdzSvTmz-2">\n' +
+              '          <mxGeometry relative="1" as="geometry" />\n' +
+              '        </mxCell>\n' +
+              '        <mxCell id="NwGjgS0ppywrLdzSvTmz-1" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=14;" vertex="1" parent="1">\n' +
+              '          <mxGeometry x="210" y="230" width="120" height="60" as="geometry" />\n' +
+              '        </mxCell>\n' +
+              '        <mxCell id="NwGjgS0ppywrLdzSvTmz-6" style="edgeStyle=none;rounded=1;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=1.5;fontSize=14;" edge="1" parent="1" source="NwGjgS0ppywrLdzSvTmz-2" target="NwGjgS0ppywrLdzSvTmz-3">\n' +
+              '          <mxGeometry relative="1" as="geometry" />\n' +
+              '        </mxCell>\n' +
+              '        <mxCell id="NwGjgS0ppywrLdzSvTmz-2" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=14;" vertex="1" parent="1">\n' +
+              '          <mxGeometry x="470" y="240" width="120" height="60" as="geometry" />\n' +
+              '        </mxCell>\n' +
+              '        <mxCell id="NwGjgS0ppywrLdzSvTmz-3" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=14;" vertex="1" parent="1">\n' +
+              '          <mxGeometry x="430" y="410" width="120" height="60" as="geometry" />\n' +
+              '        </mxCell>\n' +
+              '      </root>\n' +
+              '    </mxGraphModel>\n' +
+              '  </diagram>\n' +
+              '</mxfile>\n'
+    }
+    const blob = new Blob([fileObj.data], {type: 'application/octet-stream'})
+    saveAs(blob,fileObj.title);
+
+</script>
+</html>
