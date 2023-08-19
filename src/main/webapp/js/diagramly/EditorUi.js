@@ -4726,6 +4726,7 @@
 	 */
 	EditorUi.prototype.doSaveLocalFile = function(data, filename, mimeType, base64Encoded, format, defaultExtension)
 	{
+		console.log("doSaveLocalFile")
 		// Appends .drawio extension for XML files with no extension
 		// to avoid the browser to automatically append .xml instead
 		if (mimeType == 'text/xml' &&
@@ -4741,6 +4742,7 @@
 		// Newer versions of IE
 		if (window.Blob && navigator.msSaveOrOpenBlob)
 		{
+			console.log(1111111111123)
 			var blob = (base64Encoded) ?
 					this.base64ToBlob(data, mimeType) :
 					new Blob([data], {type: mimeType})
@@ -4749,6 +4751,7 @@
 		// Older versions of IE (binary not supported)
 		else if (mxClient.IS_IE)
 		{
+			console.log(2222222222222)
 			var win = window.open('about:blank', '_blank');
 			
 			if (win == null)
@@ -4765,6 +4768,7 @@
 		}
 		else if (mxClient.IS_IOS && this.isOffline())
 		{
+			console.log(33333333333333333)
 			// Workaround for "WebKitBlobResource error 1" in mobile Safari
 			if (!navigator.standalone && mimeType != null && mimeType.substring(0, 6) == 'image/')
 			{
@@ -4777,6 +4781,7 @@
 		}
 		else
 		{
+			console.log(444444444444444)
 			var a = document.createElement('a');
 			
 			// Workaround for mxXmlRequest.simulate no longer working in PaleMoon
@@ -4814,13 +4819,15 @@
 				
 				try
 				{
-					window.setTimeout(function()
-					{
-						URL.revokeObjectURL(a.href);
-					}, 20000);
-
-					a.click();
-					a.parentNode.removeChild(a);
+					if(!urlParams['id']){
+						window.setTimeout(function()
+						{
+							URL.revokeObjectURL(a.href);
+						}, 20000);
+	
+						a.click();
+						a.parentNode.removeChild(a);
+					}
 				}
 				catch (e)
 				{

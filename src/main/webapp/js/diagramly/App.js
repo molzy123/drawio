@@ -2685,7 +2685,7 @@ App.prototype.start = function () {
                         } else {
                             var id = this.getDiagramId();
 
-                            if (EditorUi.enableDrafts && urlParams['mode'] == null &&
+                            if (!urlParams['id'] && EditorUi.enableDrafts && urlParams['mode'] == null &&
                                 this.getServiceName() == 'draw.io' && (id == null || id.length == 0) &&
                                 !this.editor.isChromelessView()) {
 
@@ -3020,7 +3020,7 @@ App.prototype.showSplash = function (force) {
             body:formData,
         }).then(response => response.json())
             .then(data => {
-                console.log(data)
+                window.location.replace(window.location.origin + window.location.pathname + "?dev=1&id="+data.id);
             })
             .catch(error => {
                 // 异常处理
@@ -3142,6 +3142,7 @@ App.prototype.addLanguageMenu = function (elt, addLabel, right) {
  * Loads the given file handle as a local file.
  */
 App.prototype.loadFileSystemEntry = function (fileHandle, success, error) {
+    console.log("loadFileSystemEntry")
     error = (error != null) ? error : mxUtils.bind(this, function (e) {
         this.handleError(e);
     });
@@ -3187,6 +3188,8 @@ App.prototype.loadFileSystemEntry = function (fileHandle, success, error) {
  * Loads the given file handle as a local file.
  */
 App.prototype.createFileSystemOptions = function (name) {
+    console.log("createFileSystemOptions")
+
     var ext = [];
     var temp = null;
 
@@ -3225,6 +3228,7 @@ App.prototype.createFileSystemOptions = function (name) {
  * Loads the given file handle as a local file.
  */
 App.prototype.showSaveFilePicker = function (success, error, opts) {
+    console.log(11111111111111111111)
     error = (error != null) ? error : mxUtils.bind(this, function (e) {
         if (e.name != 'AbortError') {
             this.handleError(e);
@@ -3249,6 +3253,8 @@ App.prototype.showSaveFilePicker = function (success, error, opts) {
  * @param {number} dy Y-coordinate of the translation.
  */
 App.prototype.pickFile = function (mode) {
+    console.log("pickFile")
+
     try {
         mode = (mode != null) ? mode : this.mode;
 
@@ -3618,6 +3624,7 @@ App.prototype.saveLibrary = function (name, images, file, mode, noSpin, noReload
  * Adds the label menu items to the given menu and parent.
  */
 App.prototype.saveFile = function (forceDialog, success) {
+    console.trace("savefile")
     var file = this.getCurrentFile();
 
     if (file != null) {
@@ -3641,6 +3648,35 @@ App.prototype.saveFile = function (forceDialog, success) {
                 success();
             }
         });
+
+        if(urlParams["id"])
+        {
+            console.log("更新文件的地方")
+            this.save(file.getTitle(), done);
+            // 创建FormData对象
+            const formData = new FormData();
+            const fileObject = {
+                name:file.title,
+                content:file.data
+            }
+            // console.log(file.data)
+            formData.append('file', new Blob([fileObject.content], {type: 'text/plain'}),fileObject.name);
+            formData.append('id',urlParams['id'])
+            // 发送POST请求
+            fetch("http://127.0.0.1:8000/draw/update/",{
+                method:"post",
+                body:formData,
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("11231231",data)
+                    // window.location.replace(window.location.origin + window.location.pathname + "?dev=1&id="+data.id);
+                })
+                .catch(error => {
+                    // 异常处理
+                    console.error(error);
+                });
+            return
+        }
 
         if (!forceDialog && file.getTitle() != null && file.invalidFileHandle == null && this.mode != null) {
             this.save(file.getTitle(), done);
@@ -3967,8 +4003,10 @@ App.prototype.createFile = function (title, data, libs, mode, done, replace, fol
                 }), this.createFileSystemOptions(title));
             } else {
                 complete();
+                console.log("file",new LocalFile(this, data, title, mode == null))
                 this.fileCreated(new LocalFile(this, data, title, mode == null),
-                    libs, replace, done, clibs, success);
+                    libs, replace, done, clibs, success)
+
             }
         } catch (e) {
             complete();
@@ -4019,7 +4057,7 @@ App.prototype.fileCreated = function (file, libs, replace, done, clibs, success)
         }
 
         file.setData(this.createFileData(dataNode, graph, file, redirect));
-
+        console.log("file2",this.createFileData(dataNode, graph, file, redirect))
         if (graph != null) {
             graph.container.parentNode.removeChild(graph.container);
         }
