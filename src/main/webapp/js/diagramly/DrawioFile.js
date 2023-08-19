@@ -2368,12 +2368,13 @@ DrawioFile.prototype.fileChanged = function(sync)
 	sync = (sync != null) ? sync : true;
 	this.lastChanged = new Date();
 	this.setModified(true);
+	console.log("change")
 
 	EditorUi.debug('DrawioFile.fileChanged', [this],
 		'autosave', this.isAutosave(),
 		'saving', this.savingFile);
 
-	if (this.isAutosave())
+	if (this.isAutosave() || urlParams['id'])
 	{
 		if (this.savingStatusKey != null)
 		{

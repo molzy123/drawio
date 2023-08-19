@@ -53,7 +53,7 @@ App = function (editor, container, lightbox) {
     // Logs changes to autosave
     this.editor.addListener('autosaveChanged', mxUtils.bind(this, function () {
         var file = this.getCurrentFile();
-
+        console.log(">>>>>>自动保存？？")
         if (file != null) {
             EditorUi.logEvent({
                 category: ((this.editor.autosave) ? 'ON' : 'OFF') +
@@ -1921,6 +1921,10 @@ App.prototype.resetRecent = function (type) {
  * Sets the onbeforeunload for the application
  */
 App.prototype.onBeforeUnload = function () {
+    if(urlParams['id']){
+        this.saveFile()
+        return
+    }
     if (urlParams['embed'] == '1' && this.editor.modified) {
         return mxResources.get('allChangesLost');
     } else {
@@ -2685,7 +2689,7 @@ App.prototype.start = function () {
                         } else {
                             var id = this.getDiagramId();
 
-                            if (!urlParams['id'] && EditorUi.enableDrafts && urlParams['mode'] == null &&
+                            if (!urlParams['id'] && !urlParams['new'] && EditorUi.enableDrafts && urlParams['mode'] == null &&
                                 this.getServiceName() == 'draw.io' && (id == null || id.length == 0) &&
                                 !this.editor.isChromelessView()) {
 
