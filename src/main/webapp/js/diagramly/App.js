@@ -3628,9 +3628,9 @@ App.prototype.saveLibrary = function (name, images, file, mode, noSpin, noReload
  * Adds the label menu items to the given menu and parent.
  */
 App.prototype.saveFile = function (forceDialog, success) {
-    console.trace("savefile")
-    var file = this.getCurrentFile();
 
+    var file = this.getCurrentFile();
+    console.log("savefile",file)
     if (file != null) {
         // FIXME: Invoke for local files
         var done = mxUtils.bind(this, function () {
@@ -5422,6 +5422,7 @@ App.prototype.showAuthDialog = function (peer, showRememberOption, fn, closeFn) 
  * readLibrary argument is used for reading libraries. Default is false.
  */
 App.prototype.convertFile = function (url, filename, mimeType, extension, success, error, executeRequest, headers) {
+    console.log("convertFile")
     var name = filename;
 
     // SVG file extensions are valid and needed for image import

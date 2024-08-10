@@ -3532,6 +3532,7 @@
 		ignoreSelection, scale, transparentBackground, addShadow, converter, graph, border, noCrop, grid,
 		theme, exportType, cells)
 	{
+		console.log("exporttoCanvas")
 		try
 		{
 			limitHeight = (limitHeight != null) ? limitHeight : true;
